@@ -63,6 +63,7 @@ type JobResponse struct {
 	DisplayNameOrNull  interface{} `json:"displayNameOrNull"`
 	DownstreamProjects []InnerJob  `json:"downstreamProjects"`
 	FirstBuild         JobBuild
+	FullName        string      `json:"fullName"`
 	HealthReport       []struct {
 		Description   string `json:"description"`
 		IconClassName string `json:"iconClassName"`
@@ -104,7 +105,7 @@ type History struct {
 }
 
 func (j *Job) GetName() string {
-	return j.Raw.Name
+	return j.Raw.FullName
 }
 
 func (j *Job) GetDescription() string {
