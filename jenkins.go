@@ -285,7 +285,7 @@ func (j *Jenkins) GetBuild(jobName string, number int64) (*Build, error) {
 	if err != nil {
 		return nil, err
 	}
-	build, err := job.GetBuild(number)
+	build, err := job.GetBuildWithDepth(number, 3)
 
 	if err != nil {
 		return nil, err
