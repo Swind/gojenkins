@@ -118,12 +118,13 @@ type BuildResponse struct {
 				AbsoluteUrl string `json:"absoluteUrl"`
 				FullName    string `json:"fullName"`
 			} `json:"author"`
-			Comment  string `json:"comment"`
-			CommitID string `json:"commitId"`
-			Date     string `json:"date"`
-			ID       string `json:"id"`
-			Msg      string `json:"msg"`
-			Paths    []struct {
+			AuthorEmail string `json:"authorEmail"`
+			Comment     string `json:"comment"`
+			CommitID    string `json:"commitId"`
+			Date        string `json:"date"`
+			ID          string `json:"id"`
+			Msg         string `json:"msg"`
+			Paths       []struct {
 				EditType string `json:"editType"`
 				File     string `json:"file"`
 			} `json:"paths"`
