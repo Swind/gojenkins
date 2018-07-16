@@ -26,7 +26,11 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
+
+	pb "gopkg.in/cheggaaa/pb.v1"
 )
 
 // Request Methods
@@ -242,9 +246,18 @@ func (r *Requester) Do(ar *APIRequest, responseStruct interface{}, options ...in
 }
 
 func (r *Requester) ReadRawResponse(response *http.Response, responseStruct interface{}) (*http.Response, error) {
+	size, err := strconv.Atoi(response.Header.Get("Content-Length"))
+	if err != nil {
+		return nil, err
+	}
 	defer response.Body.Close()
 
-	content, err := ioutil.ReadAll(response.Body)
+	bar := pb.New(size).SetUnits(pb.U_BYTES).SetRefreshRate(time.Millisecond * 10)
+	bar.ShowSpeed = true
+	bar.Start()
+	reader := bar.NewProxyReader(response.Body)
+
+	content, err := ioutil.ReadAll(reader)
 	if err != nil {
 		return nil, err
 	}
