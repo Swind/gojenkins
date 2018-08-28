@@ -267,6 +267,8 @@ func (r *Requester) ReadRawResponse(response *http.Response, responseStruct inte
 		return nil, fmt.Errorf("Could not cast responseStruct to *string")
 	}
 
+	bar.Finish()
+
 	return response, nil
 }
 
